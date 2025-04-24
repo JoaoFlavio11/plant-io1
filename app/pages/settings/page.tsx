@@ -1,0 +1,32 @@
+import React from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Configurações',
+  description: 'Configurações do sistema',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
+};
+
+export default function Settings(){
+  return (
+    <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400">
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Conteúdo principal */}
+      <main className="flex-grow flex flex-col items-center justify-center p-24 pt-32 pl-4">
+        <h1 className="text-4xl font-bold text-left bg-neutral-900 p-6 shadow-2xl font-mono rounded-4xl w-0.5 leading-snug">
+          <span className="block">Configurações</span>
+        </h1>
+      </main>
+
+      {/* Rodapé */}
+      <Footer />
+    </div>
+  );
+};
