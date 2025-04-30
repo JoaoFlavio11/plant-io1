@@ -3,34 +3,49 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/services/firebase";
 import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 type SensorData = {
   temperatura: number;
   umidade: number;
   status: string;
   regado: boolean;
-  pe: string;
 };
 
 const SensorCard = ({
   title,
   description,
-  data,
+  dataLabels,
+  dataValues,
+  imageUrl,
 }: {
   title: string;
   description: string;
-  data: string[];
+  dataLabels: string[];
+  dataValues: (string | number)[];
+  imageUrl: string;
 }) => (
-  <div className="bg-neutral-900 p-6 rounded-xl border border-lime-500 shadow-md max-w-4xl w-full space-y-2">
-    <h2 className="text-2xl font-bold text-lime-400 font-mono">{title}</h2>
-    <p className="text-zinc-300">{description}</p>
-    <ul className="list-disc list-inside text-zinc-200">
-      {data.map((item, index) => (
-        <li key={index} className="font-mono">
-          {item}
-        </li>
+  <div className="bg-neutral-900 p-6 rounded-2xl shadow-md w-full max-w-md flex flex-col space-y-6">
+    <div className="flex flex-col md:flex-row md:items-center gap-6">
+      <img src={imageUrl} alt={title} className="w-full md:w-40 h-40 object-contain" />
+      <div className="flex-1">
+        <h2 className="text-2xl font-bold text-lime-400 font-mono mb-2">{title}</h2>
+        <p className="text-zinc-300 text-md">{description}</p>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+      {dataLabels.map((label, index) => (
+        <div
+          key={index}
+          className="bg-neutral-800 p-4 rounded-lg flex flex-col items-center text-center"
+        >
+          <span className="font-mono font-bold text-blue-600 text-sm">{label}</span>
+          <span className="text-xl font-bold text-blue-500 mt-1">{dataValues[index]}</span>
+        </div>
       ))}
-    </ul>
+    </div>
   </div>
 );
 
@@ -58,58 +73,45 @@ export default function SensorsClient() {
   }, []);
 
   return (
-    <main className="flex-grow px-6 pt-32 pb-20 space-y-16">
-      <section className="space-y-10 flex flex-col items-center">
-        <h1 className="text-4xl font-bold font-mono text-center">
+    <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400">
+      {/* Navbar */}
+      <Navbar />
+
+      <main className="flex-grow px-6 pt-32 pb-20 flex flex-col items-center">
+        <h1 className="text-4xl font-bold font-mono text-center mb-16">
           Sensores Utilizados
         </h1>
 
-        <SensorCard
-          title="Sensor de Umidade de Solo HL-69"
-          description="Sensor analógico que mede a umidade do solo, ideal para sistemas automatizados de irrigação."
-          data={["Umidade do solo em tempo real", "Detecção de solo seco ou úmido"]}
-        />
+        {/* Layout em grid flexível */}
+        <div className="flex flex-wrap justify-center gap-10 w-full max-w-7xl">
+          {/* Sensor de Temperatura e Umidade (DHT11) */}
+          <SensorCard
+            title="Sensor de Temperatura e Umidade DHT11"
+            description="Sensor digital que fornece medições de temperatura e umidade, amplamente utilizado em sistemas de monitoramento ambiental."
+            imageUrl="/images/dht11.png"
+            dataLabels={["Temperatura (°C)", "Status do sensor:"]}
+            dataValues={[
+              dados?.temperatura ?? "Carregando...",
+              dados?.status ?? "Carregando...",
+            ]}
+          />
 
-        <SensorCard
-          title="Sensor de Temperatura e Umidade DHT11"
-          description="Sensor digital que fornece dados precisos de temperatura ambiente e umidade relativa do ar."
-          data={["Temperatura em °C", "Umidade relativa do ar em %"]}
-        />
-      </section>
+          {/* Sensor de Umidade de Solo (HL-69) */}
+          <SensorCard
+            title="Sensor de Umidade de Solo HL-69"
+            description="Sensor analógico utilizado para detectar a umidade no solo, fundamental para controle automático de irrigação."
+            imageUrl="/images/HL69.png"
+            dataLabels={["Umidade (%)", "Status do sensor:"]}
+            dataValues={[
+              dados?.umidade ?? "Carregando...",
+              dados?.status ?? "Carregando...",
+            ]}
+          />
+        </div>
+      </main>
 
-      <section className="space-y-6 flex flex-col items-center">
-        <h2 className="text-3xl font-bold font-mono text-lime-400">
-          📊 Dados em tempo real
-        </h2>
-
-        {dados ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
-            <div className="bg-neutral-900 p-4 rounded-lg border border-lime-400">
-              <h3 className="font-mono text-lime-300">Temperatura</h3>
-              <p className="text-2xl font-bold">{dados.temperatura} °C</p>
-            </div>
-
-            <div className="bg-neutral-900 p-4 rounded-lg border border-lime-400">
-              <h3 className="font-mono text-lime-300">Umidade</h3>
-              <p className="text-2xl font-bold">{dados.umidade} %</p>
-            </div>
-
-            <div className="bg-neutral-900 p-4 rounded-lg border border-lime-400">
-              <h3 className="font-mono text-lime-300">Status</h3>
-              <p className="text-2xl font-bold">{dados.status}</p>
-            </div>
-
-            <div className="bg-neutral-900 p-4 rounded-lg border border-lime-400">
-              <h3 className="font-mono text-lime-300">Regado</h3>
-              <p className="text-2xl font-bold">
-                {dados.regado ? "Sim" : "Não"}
-              </p>
-            </div>
-          </div>
-        ) : (
-          <p className="text-zinc-400">Carregando dados...</p>
-        )}
-      </section>
-    </main>
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }
