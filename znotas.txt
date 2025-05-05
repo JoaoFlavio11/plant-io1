@@ -1,1 +1,10 @@
 criar uma ação através dos dados de entrada   
+✅
+
+•	Sensor de Gás MQ-135
+•	Módulo sensor de Luminosidade LDR
+•	Regulador de Tensão
+•	Mini Painel Solar Fotovoltaico 5,5v 330mA
+•	Módulo Relógio Tempo Real RTC - DS1302 SMD
+•	Bateria CR1220 3V de Lithium / Pilha CR1220
+•	Carregador de Baterias 18650 Li-Ion 2S/3S com balanceamento USB-C - LX-USC-V2
