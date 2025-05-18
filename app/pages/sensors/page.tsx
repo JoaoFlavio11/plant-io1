@@ -46,7 +46,7 @@ const sensores = [
     imageUrl: '/images/esp32.jpg',
   },
   {
-    id:'gasMQ135',
+    id: 'gasMQ135',
     title: 'Sensor de Gás MQ135',
     description:
       'Sensor de gás MQ135, utilizado para detectar a presença de gases nocivos no ambiente, como amônia e benzeno.',
@@ -101,7 +101,6 @@ export default function SensorsClient() {
       origin: 'center',
     },
     dragSpeed: 0.60,
-    // Custom animation can be implemented using Keen Slider hooks if needed
     created(sliderInstance) {
       const move = () => {
         sliderInstance.next();
@@ -119,6 +118,7 @@ export default function SensorsClient() {
 
   return (
     <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400 font-mono">
+      
       <Navbar />
       <main className="flex-grow pt-32 pb-20 flex flex-col items-center">
         <h1 className="text-4xl font-bold text-center mb-16">
@@ -140,17 +140,51 @@ export default function SensorsClient() {
           {/* Botões de navegação */}
           <button
             onClick={() => slider.current?.prev()}
-            className="absolute top left-4 -translate-y-1/2 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
+            className="absolute top-1/2 left-4 -translate-y-1/2 bg-neutral-900/80 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={() => slider.current?.next()}
-            className="absolute top right-4 -translate-y-1/2 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
+            className="absolute top-1/2 right-4 -translate-y-1/2 bg-neutral-900/80 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
           >
             <ChevronRight size={24} />
           </button>
         </div>
+
+        {/* Imagem e texto lado a lado */}
+        <div className="diagrama mt-9 bg-neutral-900 p-8 rounded-3xl w-[90vw] md:w-[70vw] shadow-2xl mx-auto">
+          
+          {/* Flex container para imagem e texto lado a lado */}
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            
+            {/* Imagem */}
+            <div className="flex-shrink-0">
+              <Image
+                src="/images/diagrama2.png"
+                alt="Sistema de Irrigação"
+                height={400}
+                width={500}
+                className="rounded-xl shadow-lg"
+              />
+            </div>
+
+            {/* Textos */}
+            <div className="flex-1">
+              <h2 className="text-3xl font-bold text-lime-400 font-mono mx-3">
+                Ilustração do Sistema de Irrigação Inteligente
+              </h2>
+              <p className="text-zinc-300 text-xl leading-relaxed p-5">
+                O sistema de irrigação inteligente utiliza sensores para monitorar
+                a umidade do solo e controlar automaticamente a irrigação,
+                garantindo eficiência no uso da água e saúde das plantas.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+
       </main>
       <Footer />
     </div>
