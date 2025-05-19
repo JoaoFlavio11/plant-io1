@@ -1,13 +1,8 @@
 'use client';
-
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const sensores = [
   {
@@ -28,164 +23,110 @@ const sensores = [
     id: 'bombaDagua',
     title: "Bomba d'água submersa 120L/hr",
     description:
-      'Bomba submersa de 120L/hr, ideal para irrigação automática em pequenos sistemas de cultivo.',
+      'Ideal para irrigação automática em pequenos sistemas de cultivo com excelente eficiência hidráulica.',
     imageUrl: '/images/bomba.jpg',
   },
   {
     id: 'rele',
     title: 'Módulo Relé - 4 canais - 5V/10a',
     description:
-      "Módulo relé de 4 canais, utilizado para controlar dispositivos elétricos, como bombas d'água, com segurança e eficiência.",
+      "Permite o controle seguro de dispositivos elétricos como bombas, através de microcontroladores.",
     imageUrl: '/images/rele.jpg',
   },
   {
     id: 'esp32',
     title: 'ESP32 - Módulo Wi-Fi e Bluetooth',
     description:
-      'Microcontrolador com conectividade Wi-Fi e Bluetooth, ideal para projetos de IoT e automação residencial.',
+      'Microcontrolador moderno para projetos conectados (IoT), com Wi-Fi e Bluetooth integrados.',
     imageUrl: '/images/esp32.jpg',
   },
   {
     id: 'gasMQ135',
     title: 'Sensor de Gás MQ135',
     description:
-      'Sensor de gás MQ135, utilizado para detectar a presença de gases nocivos no ambiente, como amônia e benzeno.',
+      'Detecta gases nocivos como amônia e benzeno, ideal para monitoramento da qualidade do ar.',
     imageUrl: '/images/mq135.jpg',
   }
 ];
 
-const SensorCard = ({
-  title,
-  description,
-  imageUrl,
-}: {
-  title: string;
-  description: string;
-  imageUrl: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0.8, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    viewport={{ once: true }}
-    className="keen-slider__slide flex justify-center"
-  >
-    <div className="sensor-card bg-neutral-900 p-12 rounded-3xl w-[66vw] md:w-[50vw] max-w-9xl shadow-2xl transition-transform duration-500 ease-in-out hover:scale-[1.01] mx-auto">
-      <div className="flex flex-col md:flex-row md:items-center gap-6">
-        <div className="relative w-full md:w-40 h-40 bg-black/20 rounded-xl overflow-hidden">
-          <Image src={imageUrl} alt={title} fill className="object-contain" />
-        </div>
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold text-lime-400 font-mono mb-2">
-            {title}
-          </h2>
-          <p className="text-zinc-300 text-xl leading-relaxed">
-            {description}
-          </p>
-        </div>
-      </div>
-    </div>
-  </motion.div>
-);
-
-export default function SensorsClient() {
-  const timer = useRef<NodeJS.Timeout | null>(null);
-
-  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    mode: 'free',
-    rubberband: false,
-    slides: {
-      perView: 1.7,
-      spacing: 30,
-      origin: 'center',
-    },
-    dragSpeed: 0.60,
-    created(sliderInstance) {
-      const move = () => {
-        sliderInstance.next();
-        timer.current = setTimeout(move, 8000);
-      };
-      move();
-    },
-  });
-
-  useEffect(() => {
-    return () => {
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, []);
-
+export default function SensorsPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400 font-mono">
-      
+    <div className="flex flex-col min-h-screen text-gray-800 font-mono">
       <Navbar />
-      <main className="flex-grow pt-32 pb-20 flex flex-col items-center">
-        <h1 className="text-4xl font-bold text-center mb-16">
-          Componentes do Sistema de Irrigação Inteligente
-        </h1>
 
-        <div className="relative w-full overflow-visible">
-          <div ref={sliderRef} className="keen-slider w-full">
-            {sensores.map((sensor) => (
-              <SensorCard
-                key={sensor.id}
-                title={sensor.title}
-                description={sensor.description}
-                imageUrl={sensor.imageUrl}
-              />
-            ))}
-          </div>
+      <main className="flex-grow ">
+        {/* Ilustração do sistema */}
+        <div className="pt-10 w-full bg-[#1F2E24]">
+          <section className="mt-10 w-full py-10">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
+              <h1 className="text-4xl sm:text-5xl font-bold text-lime-600  text-center mb-14">
+                Planta do sistema de irrigação inteligente
+              </h1>
 
-          {/* Botões de navegação */}
-          <button
-            onClick={() => slider.current?.prev()}
-            className="absolute top-1/2 left-4 -translate-y-1/2 bg-neutral-900/80 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={() => slider.current?.next()}
-            className="absolute top-1/2 right-4 -translate-y-1/2 bg-neutral-900/80 hover:bg-lime-500/90 text-white p-3 rounded-full shadow-xl transition-all z-20"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
+              <div className="flex flex-col md:flex-row items-center gap-6 rounded-2xl p-6">
+                {/* Imagem */}
+                <div className="relative w-full md:w-110 h-70 rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/diagrama2.png"
+                    alt="Diagrama do sistema"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
 
-        {/* Imagem e texto lado a lado */}
-        <div className="diagrama mt-9 bg-neutral-900 p-8 rounded-3xl w-[90vw] md:w-[70vw] shadow-2xl mx-auto">
-          
-          {/* Flex container para imagem e texto lado a lado */}
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            
-            {/* Imagem */}
-            <div className="flex-shrink-0">
-              <Image
-                src="/images/diagrama2.png"
-                alt="Sistema de Irrigação"
-                height={400}
-                width={500}
-                className="rounded-xl shadow-lg"
-              />
+                {/* Texto */}
+                <div className="flex-1 ">
+                  <p className="font-semibold text-lg sm:text-xl text-white leading-relaxed">
+                    Nosso sistema inteligente de irrigação utiliza sensores para medir a umidade do solo e controlar
+                    automaticamente o fornecimento de água, otimizando recursos e promovendo a sustentabilidade.
+                  </p>
+                </div>
+              </div>
             </div>
-
-            {/* Textos */}
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold text-lime-400 font-mono mx-3">
-                Ilustração do Sistema de Irrigação Inteligente
-              </h2>
-              <p className="text-zinc-300 text-xl leading-relaxed p-5">
-                O sistema de irrigação inteligente utiliza sensores para monitorar
-                a umidade do solo e controlar automaticamente a irrigação,
-                garantindo eficiência no uso da água e saúde das plantas.
-              </p>
-            </div>
-
-          </div>
+          </section>
         </div>
 
 
+        {/* Componentes */}
+        <section className="mt-10 w-full py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-emerald-800 text-center mb-14">
+              Componentes do Sistema
+            </h2>
+
+            <ul className="space-y-12">
+              {sensores.map((sensor) => (
+                <motion.li
+                  key={sensor.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="bg-white/80 border border-emerald-100 backdrop-blur-md rounded-2xl p-6 shadow-md flex flex-col md:flex-row items-center gap-6 hover:shadow-lg transition"
+                >
+                  <div className="relative w-full md:w-40 h-40 bg-white rounded-xl overflow-hidden">
+                    <Image
+                      src={sensor.imageUrl}
+                      alt={sensor.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-[#2F5D3A] mb-2">
+                      {sensor.title}
+                    </h3>
+                    <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                      {sensor.description}
+                    </p>
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </div>
   );

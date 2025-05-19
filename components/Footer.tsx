@@ -5,12 +5,14 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-neutral-900 text-white py-6 shadow-2xl">
+    <footer className="w-full bg-[#1F2E24] text-white py-6 shadow-2xl">
         <p className="w-full text-lg text-center px-4">
-          The best <span className="font-mono text-lime-400">SCADA</span> system for your plants.
+          Um sistema <span className="font-mono text-lime-600">SCADA</span> focado em
+           Agricultura de Precisão e
+           IoT.
         </p>
         <div className="mt-4 text-sm text-center text-neutral-400">
-          &copy; {new Date().getFullYear()} AgroTech Services. All rights reserved.
+          &copy; {new Date().getFullYear()} AgroTech Services. Todos os direitos reservados.
         </div>
       </footer>
   );
