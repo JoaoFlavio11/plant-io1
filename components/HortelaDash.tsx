@@ -23,7 +23,7 @@ const HortelaDash = () => {
 
         if (!snapshot.empty) {
           const firstDoc = snapshot.docs[0];
-          const docRef = doc(db, "hortela", firstDoc.id); // Corrigido aqui!
+          const docRef = doc(db, "hortela", firstDoc.id); 
 
           const unsub = onSnapshot(docRef, (docSnap) => {
             if (docSnap.exists()) {
