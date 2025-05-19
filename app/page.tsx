@@ -3,21 +3,17 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-
 export default function AuthPage() {
   const [isRegistering, setIsRegistering] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-800 text-green-900 font-mono">
-
-      {/* Navbar */}
-      
+    <div className="flex flex-col min-h-screen text-green-900 font-mono">
 
       {/* Conteúdo principal */}
       <main className="flex items-center justify-center flex-col w-full h-ful bg-[#F1EDE7]">
 
         {/* Conteúdo */}
-        <div className="flex flex-col items-center justify-center p-30 w-full bg-green-900">
+        <div className="flex flex-col items-center justify-center p-30 w-full bg-[#1F2E24]">
           
           {/* Cabeçalho */}
           <div className="mb-8">
@@ -69,7 +65,7 @@ export default function AuthPage() {
                 transition={{ duration: 1.3 }}
                 className="w-full md:w-1/2 px-8 md:px-16 bg-[#F1EDE7] rounded-2xl p-5"
               >
-                <h2 className="font-bold text-2xl text-lime">Register</h2>
+                <h2 className="font-bold text-2xl text-lime">Registre-se</h2>
                 <p className="text-0.8xl mt-4 text-gray-900 font-medium">Crie sua conta:</p>
                 <form className="flex flex-col gap-4 mt-8">
                   <input type="text" placeholder="Nome:" className="p-2 rounded-xl text-lime-800 font-bold" />
@@ -143,7 +139,7 @@ export default function AuthPage() {
         </div>
         
         {/* Funcionalidades */}
-        <div className="flex justify-center w-full bg-green-900 p-10">
+        <div className="flex justify-center w-full bg-[#1F2E24] p-10">
           <div className="flex gap-8 max-w-6xl w-full">
 
             {/* Sensores */}

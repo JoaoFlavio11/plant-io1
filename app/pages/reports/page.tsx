@@ -149,7 +149,7 @@ export default function Reports() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400">
+    <div className="flex flex-col min-h-screen text-lime-400">
       <Navbar />
 
       <main className="flex-grow flex flex-col items-center p-10 pt-32">

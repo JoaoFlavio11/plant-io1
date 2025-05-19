@@ -23,7 +23,7 @@ const HortelaDash = () => {
 
         if (!snapshot.empty) {
           const firstDoc = snapshot.docs[0];
-          const docRef = doc(db, "hortela", firstDoc.id); // Corrigido aqui!
+          const docRef = doc(db, "hortela", firstDoc.id); 
 
           const unsub = onSnapshot(docRef, (docSnap) => {
             if (docSnap.exists()) {
@@ -48,23 +48,31 @@ const HortelaDash = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-800 text-lime-400">
-      <main className="flex-grow p-6 pt-32 space-y-8">
-        <h1 className="text-4xl font-bold font-mono">Platação de hortelã</h1>
-        <h2 className="text-2xl font-semibold mb-4 border-b border-lime-500 pb-2">Leituras em tempo real</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {dados && (
-            <>
-              <Card title="Temperatura" value={`${dados.temperatura} °C`} />
-              <Card title="Umidade" value={`${dados.umidade} %`} />
-              <Card title="Status" value={dados.status} />
-              <Card title="Regado" value={dados.regado ? "Sim" : "Não"} />
-            </>
-          )}
+    <div className="flex flex-col min-h-screen text-lime-400">
+      <main className="flex-grow space-y-8">
+        {/* Fundo em largura total */}
+        <div className="pt-32 p-6 w-full bg-[#1F2E24]">
+          {/* Container centralizado */}
+          <div className="max-w-6xl mx-auto">
+            <h1 className="text-4xl font-bold font-mono">Platação de hortelã</h1>
+            <h2 className="text-2xl font-semibold mb-4 border-b border-lime-500 pb-2">
+              Leituras em tempo real
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {dados && (
+                <>
+                  <Card title="Temperatura do solo" value={`${dados.temperatura} °C`} />
+                  <Card title="Umidade do solo" value={`${dados.umidade} %`} />
+                  <Card title="Status" value={dados.status} />
+                  <Card title="Regado" value={dados.regado ? "Sim" : "Não"} />
+                </>
+              )}
+            </div>
+          </div>
         </div>
-
       </main>
     </div>
+
   );
 };
 
