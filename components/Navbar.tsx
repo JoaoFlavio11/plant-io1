@@ -7,6 +7,7 @@ const links = [
   { name: 'Dashboard', path: '/pages/dashboard' },
   { name: 'Componentes', path: '/pages/sensors' },
   { name: 'Relatórios', path: '/pages/reports' },
+  { name: 'Planos', path: '/pages/planos' },
 ];
 
 const Navbar = () => {

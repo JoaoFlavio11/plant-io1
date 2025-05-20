@@ -54,7 +54,7 @@ const HortelaDash = () => {
         <div className="pt-32 p-6 w-full bg-[#1F2E24]">
           {/* Container centralizado */}
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-4xl font-bold font-mono">Platação de hortelã</h1>
+            <h1 className="text-4xl font-bold font-mono">Plantação de hortelã</h1>
             <h2 className="text-2xl font-semibold mb-4 border-b border-lime-500 pb-2">
               Leituras em tempo real
             </h2>
