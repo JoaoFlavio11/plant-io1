@@ -25,7 +25,7 @@ export default function PlanosPage() {
     {
       nome: "Plano Premium",
       preco: "R$ 89,90/mês",
-      descricao: "Suporte 24h do sistema e dos equipamentos + envio de componentes de reposição.",
+      descricao: "Suporte 24h do sistema e dos equipamentos + envio de componentes de reposição e instalação.",
     },
   ];
 

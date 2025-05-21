@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react"; // Removido o useRef
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { db } from "@/services/firebase";
+import { db } from "@/services/firebaseConfig";
+import { Chart, ChartOptions } from "chart.js";
 import { collection, getDocs } from "firebase/firestore"; // Removido doc e onSnapshot
 import jsPDF from "jspdf";
-import { Chart } from "chart.js";
-import { ChartOptions } from "chart.js";
+import { useEffect, useState } from "react"; // Removido o useRef
 
 // Definindo o tipo SensorData com as propriedades corretas
 type SensorData = {
