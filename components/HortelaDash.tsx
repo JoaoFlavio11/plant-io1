@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
-import { db } from "@/services/firebase";
 import { Card } from "@/components/Card";
+import { db } from "@/services/firebaseConfig";
+import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 type SensorData = {
   temperatura: number;

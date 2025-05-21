@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import { useEffect, useState } from 'react';
-import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-import { db } from '@/services/firebase';
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HortelaDash from '@/components/HortelaDash';
+import Navbar from '@/components/Navbar';
+import { db } from '@/services/firebaseConfig';
+import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 type SensorData = {
   temperatura: number;
