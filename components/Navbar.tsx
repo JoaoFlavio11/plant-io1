@@ -18,6 +18,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,6 +32,21 @@ const Navbar = () => {
     router.push("/");
   };
 
+  // Fecha o menu ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".menu-profile")) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div>
       {/* Navbar */}
@@ -41,7 +57,7 @@ const Navbar = () => {
           </h2>
         </Link>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           {links.map((link, index) => {
             const isActive = link.path === pathname;
             return (
@@ -58,14 +74,33 @@ const Navbar = () => {
           })}
 
           {userEmail && (
-            <div className="flex items-center gap-4 ml-6">
-              <span className="text-sm text-lime-400">{userEmail}</span>
+            <div className="relative ml-6 menu-profile">
               <button
-                onClick={handleLogout}
-                className="px-4 py-1 bg-red-600 rounded hover:bg-red-700 text-sm"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-lime-400 text-black hover:bg-lime-500"
               >
-                Sair
+                <span className="text-lg font-bold">
+                  {userEmail.charAt(0).toUpperCase()}
+                </span>
               </button>
+
+              {isMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50 border border-gray-200">
+                  <div className="px-4 py-3">
+                    <p className="text-sm text-gray-500">Logado como:</p>
+                    <p className="text-sm font-medium text-gray-900 break-words">{userEmail}</p>
+                  </div>
+                  <div className="border-t border-gray-200">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-center font-bold px-4 py-3 text-sm text-red-600 hover:bg-gray-50 rounded-b-xl transition"
+                    >
+                      Sair da conta
+                    </button>
+                  </div>
+                </div>
+              )}
+
             </div>
           )}
         </div>
