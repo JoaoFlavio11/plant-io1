@@ -1,63 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
-
+// pages/dashboard/page.tsx
 import Footer from '@/components/Footer';
 import HortelaDash from '@/components/HortelaDash';
+import PlantsChart from '@/components/PlantsChart';
 import Navbar from '@/components/Navbar';
-import { db } from '@/services/firebaseConfig';
-import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-
-type SensorData = {
-  temperatura: number;
-  umidade: number;
-  status: string;
-  historico?: { timestamp: string; temperatura: number }[];
-};
 
 export default function DashboardPage() {
-  const [dados, setDados] = useState<SensorData | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const sensoresRef = collection(db, 'sensores');
-        const snapshot = await getDocs(sensoresRef);
-
-        if (!snapshot.empty) {
-          const firstDoc = snapshot.docs[0];
-          const docRef = doc(db, 'sensores', firstDoc.id);
-
-          // Agora sim: escuta em tempo real
-          const unsub = onSnapshot(docRef, (docSnap) => {
-            if (docSnap.exists()) {
-              const data = docSnap.data() as SensorData;
-              console.log('🔥 Dados recebidos do Firestore:', data);
-              setDados(data);
-            } else {
-              console.warn('❌ Documento não encontrado!');
-            }
-          });
-
-          return () => unsub();
-        } else {
-          console.warn('⚠️ Nenhum documento encontrado na coleção "sensores".');
-        }
-      } catch (error) {
-        console.error('❌ Erro ao buscar dados do Firestore:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
-    <div className="flex flex-col min-h-screen text-lime-400">
+    <div className="flex flex-col min-h-screen  text-lime-400">
       <Navbar />
-      
-      <HortelaDash/> 
-       
-         
+      <main className="flex-grow mt-5">
+        <HortelaDash />
+        <div className="max-w-6xl align-middle mx-auto px-4">
+          <h1 className="font-mono text-4xl font-bold font-mono text-left mt-8 text-emerald-800">
+            Gráficos
+          </h1>
+          <h2 className=" text-2xl font-semibold mb-6 border-b border-emerald-500 pb-1 text-emerald-800">
+          Temperatura e Umidade
+          </h2>
+          <PlantsChart />
+        </div>
+      </main>
       <Footer />
     </div>
   );
