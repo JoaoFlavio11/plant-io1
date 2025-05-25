@@ -99,49 +99,60 @@ export default function Reports() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-950 text-lime-400">
+    <div className="flex flex-col min-h-screen text-gray-500 font-mono">
       <Navbar />
 
-      <main className="flex-grow flex flex-col items-center p-8 pt-32">
-        <h1 className="text-4xl font-bold mb-8">Relatórios</h1>
-
-        <div className="w-full max-w-3xl bg-neutral-900 rounded-xl p-6 space-y-4 shadow-lg">
-          <h2 className="text-2xl font-bold text-lime-300">Última Leitura</h2>
-
-          {dados.length > 0 ? (
-            <div className="space-y-2 text-zinc-300">
-              <p><strong>Data:</strong> {new Date(dados[0].timestamp).toLocaleString()}</p>
-              <p><strong>Temperatura:</strong> {dados[0].temperatura} °C</p>
-              <p><strong>Umidade do Solo:</strong> {dados[0].umidade} %</p>
-              <p><strong>Status:</strong> {dados[0].status}</p>
-              <p><strong>Regado Automaticamente:</strong> {dados[0].regado ? "Sim" : "Não"}</p>
+      <main className="flex-grow">
+        <section className="w-full py-24">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl font-bold text-emerald-800">
+                Relatórios
+              </h2>
+              <p className="text-lg text-gray-600 mt-4">
+                Veja os dados coletados pelos sensores e faça o download dos relatórios.
+              </p>
             </div>
-          ) : (
-            <p className="text-zinc-400">Carregando dados...</p>
-          )}
 
-          {generatedAt && (
-            <p className="text-sm text-neutral-500">
-              Relatório gerado em: {generatedAt}
-            </p>
-          )}
-        </div>
+            <div className="w-full max-w-3xl mx-auto bg-[#d1cbc2] rounded-xl p-6 space-y-4 shadow-lg">
+              <h2 className="text-2xl font-bold text-emerald-800">Última Leitura</h2>
 
-        <div className="flex gap-4 mt-8">
-          <button
-            onClick={generatePDF}
-            className="bg-lime-500 hover:bg-lime-600 text-neutral-900 font-bold py-2 px-6 rounded-lg transition"
-          >
-            Baixar PDF
-          </button>
+              {dados.length > 0 ? (
+                <div className="space-y-2 text-gray-700 text-md">
+                  <p><strong>Data:</strong> {new Date(dados[0].timestamp).toLocaleString()}</p>
+                  <p><strong>Temperatura:</strong> {dados[0].temperatura} °C</p>
+                  <p><strong>Umidade do Solo:</strong> {dados[0].umidade} %</p>
+                  <p><strong>Status:</strong> {dados[0].status}</p>
+                  <p><strong>Regado Automaticamente:</strong> {dados[0].regado ? "Sim" : "Não"}</p>
+                </div>
+              ) : (
+                <p className="text-gray-500">Carregando dados...</p>
+              )}
 
-          <button
-            onClick={generateXLSX}
-            className="bg-emerald-500 hover:bg-emerald-600 text-neutral-900 font-bold py-2 px-6 rounded-lg transition"
-          >
-            Baixar XLSX
-          </button>
-        </div>
+              {generatedAt && (
+                <p className="text-sm text-gray-900">
+                  Relatório gerado em: {generatedAt}
+                </p>
+              )}
+
+              <div className="justify-end flex gap-4 mt-6">
+                <button
+                  onClick={generatePDF}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-lg transition"
+                >
+                  Baixar PDF
+                </button>
+
+                <button
+                  onClick={generateXLSX}
+                  className="bg-emerald-600 hover:bg-emerald-800 text-white font-bold py-2 px-6 rounded-lg transition"
+                >
+                  Baixar XLSX
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

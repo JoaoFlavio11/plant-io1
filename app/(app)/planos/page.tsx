@@ -102,7 +102,6 @@ export default function PlanosPage() {
                 >
                   <option>Cartão de Crédito</option>
                   <option>Pix</option>
-                  <option>Boleto Bancário</option>
                 </select>
 
                 <input
