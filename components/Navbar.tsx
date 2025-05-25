@@ -1,3 +1,4 @@
+// Navbar.tsx
 "use client";
 
 import Link from "next/link";
@@ -50,7 +51,7 @@ const Navbar = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="w-full bg-[#1F2E24] text-white flex items-center justify-between px-6 py-4 fixed top-0 z-20">
+      <nav className="w-full bg-[#1F2E24] text-white font-mono flex items-center justify-between px-6 py-4 fixed top-0 z-20">
         <Link href="/">
           <h2 className="text-xl font-bold font-mono cursor-pointer">
             Agro<span className="text-lime-400">Tech</span>
@@ -85,15 +86,15 @@ const Navbar = () => {
               </button>
 
               {isMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50 border border-gray-200">
+                <div className="absolute font-semibold right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50 border border-gray-200">
                   <div className="px-4 py-3">
                     <p className="text-sm text-gray-500">Logado como:</p>
-                    <p className="text-sm font-medium text-gray-900 break-words">{userEmail}</p>
+                    <p className="text-sm font-semibold text-gray-900 break-words">{userEmail}</p>
                   </div>
                   <div className="border-t border-gray-200">
                     <button
                       onClick={handleLogout}
-                      className="w-full text-center font-bold px-4 py-3 text-sm text-red-600 hover:bg-gray-50 rounded-b-xl transition"
+                      className="w-full text-center font-bold px-4 py-3 text-sm text-red-600 bg-gray-200 hover:bg-gray-400 rounded-b-xl transition"
                     >
                       Sair da conta
                     </button>
@@ -110,3 +111,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+ 
