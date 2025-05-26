@@ -11,7 +11,7 @@ export default function DashboardPage() {
       <main className="flex-grow mt-5">
         <HortelaDash />
         <div className="max-w-6xl align-middle mx-auto px-4">
-          <h1 className="font-mono text-4xl font-bold font-mono text-left mt-8 text-emerald-800">
+          <h1 className="font-mono text-4xl font-bold text-left mt-8 text-emerald-800">
             Gráficos
           </h1>
           <h2 className=" text-2xl font-semibold mb-6 border-b border-emerald-500 pb-1 text-emerald-800">

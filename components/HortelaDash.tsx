@@ -55,13 +55,13 @@ const HortelaDash = () => {
   }, []);
 
   return (
-    <section className="w-full bg-[#1F2E24] py-16 px-4">
+    <section className="w-full pt-20 pb-10 px-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold font-mono">Plantação de hortelã</h1>
-        <h2 className="text-2xl font-semibold mb-6 border-b border-lime-500 pb-2">
+        <h1 className="text-emerald-800 text-4xl font-bold font-mono">Plantação de hortelã</h1>
+        <h2 className="text-emerald-800 text-2xl font-semibold mb-6 border-b border-lime-500 pb-2">
           Leituras em tempo real
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {dados ? (
             <>
               <Card title="Temperatura do solo" value={`${dados.temperatura} °C`} />

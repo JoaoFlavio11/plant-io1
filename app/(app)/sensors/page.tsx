@@ -25,7 +25,7 @@ export default function SensorsPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl sm:text-5xl font-bold text-emerald-800">
-                Gerenciamemto dos componentes
+                Gerenciamento dos componentes
               </h2>
               <p className="text-lg text-gray-600 mt-4">
                 Visualize todos os sensores, atuadores e microcontroladores utilizados no seu sistema.
