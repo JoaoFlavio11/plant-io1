@@ -96,7 +96,7 @@ export default function AuthPage() {
                     <h1 className="text-3xl font-semibold text-lime-400">
                       {item.title}
                     </h1>
-                    <p className="text-green-100 text-xl mt-4">{item.desc}</p>
+                    <p className="leading-relaxed text-green-100 text-xl mt-4">{item.desc}</p>
                   </div>
                 ))}
               </div>
