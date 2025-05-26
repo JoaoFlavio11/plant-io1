@@ -171,7 +171,7 @@ function ComponentItem({
 }) {
   const bgColor =
     filter === 'installed'
-      ? 'bg-emerald-50 border-emerald-200'
+      ? 'bg-white border-[#d1cbc2]'
       : 'bg-yellow-50 border-yellow-200';
 
   return (
