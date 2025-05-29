@@ -8,7 +8,7 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col min-h-screen  text-lime-400">
       <Navbar />
-      <main className="flex-grow mt-5">
+      <main className="max-w-6xl align-middle mx-auto px-4">
         <HortelaDash />
         <div className="max-w-6xl align-middle mx-auto px-4">
           <h1 className="font-mono text-4xl font-bold text-left mt-8 text-emerald-800">
