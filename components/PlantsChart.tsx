@@ -124,6 +124,31 @@ export default function PlantsChart() {
             options={commonOptions}
           />
         </div>
+
+        {/* exposição  luz 
+        <div className="bg-[#d1cbc2] p-6 rounded-xl shadow-lg w-full sm:w-[48%]">
+          <h3 className="text-2xl font-bold text-emerald-800 mb-4">
+            Exposição á luz (s)
+          </h3>
+          <Line
+            data={{
+              labels,
+              datasets: [
+                {
+                  label: 'Exposição',
+                  data: umidadeData,
+                  fill: false,
+                  borderColor: '#065f46',
+                  backgroundColor: '#047857',
+                  tension: 0.3,
+                },
+              ],
+            }}
+            options={commonOptions}
+          />
+        </div>
+        */}
+
       </div>
     </section>
   );
