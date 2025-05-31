@@ -1,8 +1,8 @@
 // app/api/postData/route.ts
-import { db } from "@/services/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
-import { NextRequest, NextResponse } from "next/server";
 import { sensorDataSchema } from "@/lib/models/SensorModel";
+import { db } from "@/services/firebase/firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {

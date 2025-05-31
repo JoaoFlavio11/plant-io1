@@ -1,10 +1,10 @@
 "use client";
 
-import { db } from "@/services/firebaseConfig";
+import { db } from "@/services/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import jsPDF from "jspdf";
-import * as XLSX from "xlsx";
 import { useEffect, useState } from "react";
+import * as XLSX from "xlsx";
 
 type SensorData = {
   temperatura: number;

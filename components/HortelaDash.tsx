@@ -2,8 +2,8 @@
 'use client';
 
 import { Card } from "@/components/Card";
-import { db } from "@/services/firebaseConfig";
-import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
+import { db } from "@/services/firebase/firebaseConfig";
+import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 type SensorData = {
