@@ -3,10 +3,12 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import React from "react";
+import "@/app/globals.css";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-neutral-800 text-lime-500">
+    <div className="min-h-screen bg-[#d1cbc2] flex flex-col justify-between text-lime-800">
       {/* Navbar */}
       <Navbar />
 
@@ -17,7 +19,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="px-6 py-3 bg-lime-300 text-neutral-900 font-bold rounded-xl shadow-lg transition-transform hover:scale-105"
+          className="px-6 py-3 bg-lime-800 text-neutral-100 font-semibold rounded-xl shadow-lg transition-transform hover:scale-105"
         >
           Voltar para o início
         </Link>

@@ -1,24 +1,29 @@
-// components/HortelaDash.tsx
 'use client';
 
 import { Card } from "@/components/Card";
 import { db } from "@/services/firebase/firebaseConfig";
-import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
 
 type SensorData = {
   temperatura: number;
   umidade: number;
-  status: string;
-  regado: boolean;
-  gases?: number;
-  tempoDeLuz?: number;
+  qtdcooler: number;
+  qtdbomba1: number;
+  qtdbomba2: number;
+  solo1: number;
+  solo2: number;
   timestamp?: string;
 };
 
 const HortelaDash = () => {
   const [dados, setDados] = useState<SensorData | null>(null);
   const [timestampFormatado, setTimestampFormatado] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const postData = async (dados: Omit<SensorData, "timestamp">) => {
     try {
@@ -39,62 +44,76 @@ const HortelaDash = () => {
     }
   };
 
-  useEffect(() => {
-    const sensoresRef = collection(db, "hortela");
-    const q = query(sensoresRef, orderBy("timestamp", "desc"), limit(1));
+  const buscarUltimoDado = useCallback(async () => {
+    try {
+      const sensoresRef = collection(db, "plant");
+      const q = query(sensoresRef, orderBy("timestamp", "desc"), limit(1));
+      const snapshot = await getDocs(q);
 
-    const unsub = onSnapshot(q, (snapshot) => {
       if (!snapshot.empty) {
         const docSnap = snapshot.docs[0];
         const data = docSnap.data() as SensorData;
 
         const payload: Omit<SensorData, "timestamp"> = {
-          gases: Math.floor(Math.random() * 100),
-          umidade: data.umidade,
-          tempoDeLuz: Math.floor(Math.random() * 300),
           temperatura: data.temperatura,
-          status: data.status,
-          regado: data.regado,
+          umidade: data.umidade,
+          qtdcooler: data.qtdcooler,
+          qtdbomba1: data.qtdbomba1,
+          qtdbomba2: data.qtdbomba2,
+          solo1: data.solo1,
+          solo2: data.solo2,
         };
 
         const now = new Date().toISOString();
         setDados({ ...payload, timestamp: now });
         postData(payload);
 
-        // Formatação da data movida para o useEffect para evitar hydration error
-        const formatado = new Date(now).toLocaleString("pt-BR", {
+        const dataFormatada = new Date(now).toLocaleDateString("pt-BR", {
+          timeZone: "America/Sao_Paulo",
+          day: "2-digit",
+          month: "2-digit",
+        });
+
+        const horaFormatada = new Date(now).toLocaleTimeString("pt-BR", {
           timeZone: "America/Sao_Paulo",
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
         });
 
-        setTimestampFormatado(formatado);
+        setTimestampFormatado(`${dataFormatada} ${horaFormatada}`);
       }
-    });
-
-    return () => unsub();
+    } catch (error) {
+      console.error("❌ Erro ao buscar dados:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      buscarUltimoDado();
+    }
+  }, [mounted, buscarUltimoDado]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <section className="w-full pt-20 pb-10 px-4">
       <div className="max-w-6xl mt-2 min-w-6xl">
         <h1 className="text-emerald-800 text-4xl font-bold font-mono">Plantação de hortelã</h1>
         <h2 className="text-emerald-800 text-2xl font-semibold mb-6 border-b border-lime-500 pb-2">
-          Leituras em tempo real
+          Última leitura registrada
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-10 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10 pt-1">
           {dados ? (
             <>
               <Card title="Temperatura" value={`${dados.temperatura} °C`} />
-              <Card title="Umidade solo" value={`${dados.umidade} %`} />
-              <Card title="Status" value={dados.status} />
-              <Card title="Regado" value={dados.regado ? "Sim" : "Não"} />
-              <Card title="Exposição à luz" value={`${dados.tempoDeLuz ?? 0} s`} />
-              {/* <Card title="Gases no ambiente" value={`${dados.gases ?? 0} %`} /> */}
+              <Card title="Umidade ambiente" value={`${dados.umidade} %`} />
+              <Card title="Umidade solo 1" value={`${dados.solo1} %`} />
+              <Card title="Umidade solo 2" value={`${dados.solo2} %`} />
+              <Card title="Ativações Cooler" value={`${dados.qtdcooler} vezes`} />
+              <Card title="Ativações Bomba 1" value={`${dados.qtdbomba1} vezes`} />
+              <Card title="Ativações Bomba 2" value={`${dados.qtdbomba2} vezes`} />
               <Card title="Última leitura" value={timestampFormatado || "N/A"} />
             </>
           ) : (
@@ -107,4 +126,3 @@ const HortelaDash = () => {
 };
 
 export default HortelaDash;
-  

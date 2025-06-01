@@ -20,7 +20,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
 type SensorData = {
   temperatura: number;
   umidade: number;
-  timestamp: number;
+  timestamp: string | number; // Pode ser string ou number dependendo do formato do timestamp
 };
 
 export default function PlantsChart() {
@@ -28,7 +28,7 @@ export default function PlantsChart() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, 'hortela'));
+      const snapshot = await getDocs(collection(db, 'plant'));
       if (!snapshot.empty) {
         const dados: SensorData[] = [];
         snapshot.forEach((docSnap) => {

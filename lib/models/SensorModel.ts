@@ -1,15 +1,21 @@
-//lib/models/sensorModel.ts
-import { z } from "zod";
+// src/lib/models/sensorModel.ts
+import { z } from 'zod';
 
+// Schema para envio (POST)
 export const sensorDataSchema = z.object({
-  temperatura: z.number().min(-50).max(100),
-  umidade: z.number().min(0).max(100),
-  status: z.string(),
-  regado: z.boolean(),
-  gases: z.number().optional(),
-  tempoDeLuz: z.number().optional(),
-  timestamp: z.string().optional(),
+  temperatura: z.number(),
+  umidade: z.number(),
+  qtdcooler: z.number(),
+  qtdbomba1: z.number(),
+  qtdbomba2: z.number(),
+  solo1: z.number(),
+  solo2: z.number(),
 });
 
-export type SensorData = z.infer<typeof sensorDataSchema>;
- 
+// Schema completo (inclui timestamp)
+export const sensorDataWithTimestampSchema = sensorDataSchema.extend({
+  timestamp: z.string(),
+});
+
+export type SensorData = z.infer<typeof sensorDataWithTimestampSchema>;
+export type SensorPostData = z.infer<typeof sensorDataSchema>;

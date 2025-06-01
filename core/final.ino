@@ -41,7 +41,7 @@ int ultimaHoraVerificada = -1;
 
 const char* ssid = "Andreizs";
 const char* password = "engenharia";
-const char* serverName = "http://172.20.10.4:3000/gravarDados";
+const char* serverName = "http://172.20.10.4:3000/api/postData";
 
 void conectarWiFi(const char* ssid, const char* password)
 {

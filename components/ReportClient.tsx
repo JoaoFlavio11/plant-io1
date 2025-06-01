@@ -5,14 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-
-type SensorData = {
-  temperatura: number;
-  umidade: number;
-  status: string;
-  regado: boolean;
-  timestamp: number;
-};
+import { SensorData } from "@/lib/models/SensorModel";
 
 export default function ReportClient() {
   const [dados, setDados] = useState<SensorData[]>([]);
@@ -20,7 +13,7 @@ export default function ReportClient() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, "hortela"));
+      const snapshot = await getDocs(collection(db, "plant"));
       if (!snapshot.empty) {
         const sensorData: SensorData[] = [];
         snapshot.forEach((docSnap) => {
@@ -28,12 +21,16 @@ export default function ReportClient() {
           sensorData.push({
             temperatura: data.temperatura,
             umidade: data.umidade,
-            status: data.status,
-            regado: data.regado,
-            timestamp: parseInt(docSnap.id, 10),
+            qtdcooler: data.qtdcooler,
+            qtdbomba1: data.qtdbomba1,
+            qtdbomba2: data.qtdbomba2,
+            solo1: data.solo1,
+            solo2: data.solo2,
+            timestamp: docSnap.id, // Agora é string, conforme o schema
           });
         });
-        sensorData.sort((a, b) => b.timestamp - a.timestamp);
+        // Ordenar do mais recente para o mais antigo
+        sensorData.sort((a, b) => Number(b.timestamp) - Number(a.timestamp));
         setDados(sensorData);
       }
     };
@@ -55,22 +52,30 @@ export default function ReportClient() {
     pdf.setFontSize(12);
     let y = 40;
     pdf.text("Data", 14, y);
-    pdf.text("Temperatura", 60, y);
-    pdf.text("Umidade", 100, y);
-    pdf.text("Status", 140, y);
-    pdf.text("Regado", 170, y);
+    pdf.text("Temp", 50, y);
+    pdf.text("Umidade", 70, y);
+    pdf.text("Solo1", 100, y);
+    pdf.text("Solo2", 120, y);
+    pdf.text("Cooler", 140, y);
+    pdf.text("Bomba1", 160, y);
+    pdf.text("Bomba2", 180, y);
+
     y += 6;
     pdf.setLineWidth(0.1);
-    pdf.line(14, y, 195, y);
+    pdf.line(14, y, 200, y);
     y += 4;
 
     dados.forEach((data) => {
-      const dataStr = new Date(data.timestamp).toLocaleString();
+      const dataStr = new Date(Number(data.timestamp)).toLocaleString();
       pdf.text(dataStr, 14, y);
-      pdf.text(`${data.temperatura}°C`, 60, y);
-      pdf.text(`${data.umidade}%`, 100, y);
-      pdf.text(data.status, 140, y);
-      pdf.text(data.regado ? "Sim" : "Não", 170, y);
+      pdf.text(`${data.temperatura}°C`, 50, y);
+      pdf.text(`${data.umidade}%`, 70, y);
+      pdf.text(`${data.solo1}%`, 100, y);
+      pdf.text(`${data.solo2}%`, 120, y);
+      pdf.text(`${data.qtdcooler}`, 140, y);
+      pdf.text(`${data.qtdbomba1}`, 160, y);
+      pdf.text(`${data.qtdbomba2}`, 180, y);
+
       y += 6;
       if (y > 280) {
         pdf.addPage();
@@ -83,11 +88,14 @@ export default function ReportClient() {
 
   const generateXLSX = () => {
     const worksheetData = dados.map((item) => ({
-      Data: new Date(item.timestamp).toLocaleString(),
+      Data: new Date(Number(item.timestamp)).toLocaleString(),
       Temperatura: `${item.temperatura} °C`,
       Umidade: `${item.umidade} %`,
-      Status: item.status,
-      Regado: item.regado ? "Sim" : "Não",
+      Solo1: `${item.solo1} %`,
+      Solo2: `${item.solo2} %`,
+      QtdCooler: item.qtdcooler,
+      QtdBomba1: item.qtdbomba1,
+      QtdBomba2: item.qtdbomba2,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(worksheetData);
@@ -97,16 +105,19 @@ export default function ReportClient() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-[#d1cbc2] rounded-xl p-6 space-y-4 shadow-lg">
+    <div className="w-full max-w-4xl mx-auto bg-[#d1cbc2] rounded-xl p-6 space-y-4 shadow-lg">
       <h2 className="text-2xl font-bold text-emerald-800">Última Leitura</h2>
 
       {dados.length > 0 ? (
-        <div className="space-y-2 text-gray-700 text-md">
-          <p><strong>Data:</strong> {new Date(dados[0].timestamp).toLocaleString()}</p>
+        <div className="grid grid-cols-2 gap-4 text-gray-700 text-md">
+          <p><strong>Data:</strong> {new Date(Number(dados[0].timestamp)).toLocaleString()}</p>
           <p><strong>Temperatura:</strong> {dados[0].temperatura} °C</p>
           <p><strong>Umidade do Solo:</strong> {dados[0].umidade} %</p>
-          <p><strong>Status:</strong> {dados[0].status}</p>
-          <p><strong>Regado Automaticamente:</strong> {dados[0].regado ? "Sim" : "Não"}</p>
+          <p><strong>Solo 1:</strong> {dados[0].solo1} %</p>
+          <p><strong>Solo 2:</strong> {dados[0].solo2} %</p>
+          <p><strong>Qtd Cooler:</strong> {dados[0].qtdcooler}</p>
+          <p><strong>Qtd Bomba 1:</strong> {dados[0].qtdbomba1}</p>
+          <p><strong>Qtd Bomba 2:</strong> {dados[0].qtdbomba2}</p>
         </div>
       ) : (
         <p className="text-gray-500">Carregando dados...</p>
