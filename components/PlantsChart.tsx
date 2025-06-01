@@ -1,26 +1,26 @@
 // components/PlantsChart.tsx
 'use client';
 
-import { Line } from 'react-chartjs-2';
+import { db } from '@/services/firebase/firebaseConfig';
 import {
+  CategoryScale,
   Chart as ChartJS,
+  Legend,
+  LinearScale,
   LineElement,
   PointElement,
-  LinearScale,
-  CategoryScale,
   Tooltip,
-  Legend,
 } from 'chart.js';
-import { useEffect, useState } from 'react';
-import { db } from '@/services/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
 
 type SensorData = {
   temperatura: number;
   umidade: number;
-  timestamp: number;
+  timestamp: string | number; // Pode ser string ou number dependendo do formato do timestamp
 };
 
 export default function PlantsChart() {
@@ -28,7 +28,7 @@ export default function PlantsChart() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, 'hortela'));
+      const snapshot = await getDocs(collection(db, 'plant'));
       if (!snapshot.empty) {
         const dados: SensorData[] = [];
         snapshot.forEach((docSnap) => {

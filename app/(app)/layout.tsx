@@ -1,7 +1,8 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import PageTransition from "../../components/PageTrasition";
-import "../globals.css";
+import PageTransition from "@/components/PageTrasition"; // Corrigido caminho
+import "@/app/globals.css"; // Corrigido caminho relativo
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F1EDE7]`} 
       >
-        <PageTransition>
-          {children}
-        </PageTransition>
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

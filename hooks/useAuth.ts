@@ -1,9 +1,9 @@
 // hooks/useAuth.ts
-import { auth } from '@/services/firebaseConfig';
+import { auth } from '@/services/firebase/firebaseConfig';
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
 } from "firebase/auth";
 
 export const register = async (email: string, password: string) => {

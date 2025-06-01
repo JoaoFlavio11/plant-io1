@@ -1,12 +1,12 @@
 // Navbar.tsx
 "use client";
 
+import { logout } from "@/hooks/useAuth";
+import { auth } from "@/services/firebase/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { auth } from "@/services/firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
-import { logout } from "@/hooks/useAuth";
 
 const links = [
   { name: "Dashboard", path: "/dashboard" },

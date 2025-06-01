@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { login, register } from "@/hooks/useAuth";
-import { auth } from "@/services/firebaseConfig";
+import { auth } from "@/services/firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export function Form() {
   const [isRegistering, setIsRegistering] = useState(false);
