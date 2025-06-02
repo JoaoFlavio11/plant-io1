@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 *AgroTech*
 
-## Getting Started
+**Sistema Supervisório para Monitoramento de Plantações**
+Projeto acadêmico desenvolvido no 7º semestre da faculdade.
 
-First, run the development server:
+O **AgroTech** é um sistema supervisório voltado para o monitoramento de plantações, integrando sensores físicos conectados a um microcontrolador **Wemos D1 Mini** com uma interface web moderna, desenvolvida em **Next.js**, **TypeScript** e **Firebase Firestore**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Este sistema permite que produtores acompanhem, em tempo real, parâmetros essenciais do ambiente agrícola, como temperatura, umidade do solo e outras variáveis, promovendo uma gestão mais eficiente e sustentável.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+* 🌐 **Frontend:** Next.js, React, TypeScript, TailwindCSS
+* 🔥 **Backend/Database:** Firebase Firestore
+* 📡 **IoT:** Wemos D1 Mini + sensores ambientais (umidade, temperatura, etc.)
+
+---
+
+## 🔧 Como Executar Localmente
+
+**Clone o repositório:**
+
+```
+git clone https://github.com/JoaoFlavio11/plant-io1.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Instale as dependências:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+# ou
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Execute o ambiente de desenvolvimento:**
 
-## Learn More
+```
+npm run dev
+# ou
+yarn dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Abra no navegador:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+http://localhost:3000
+```
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔌 Configuração do Dispositivo (Wemos D1 Mini)
 
-## Deploy on Vercel
+* Faça upload do firmware desenvolvido para o Wemos;
+* Configure as credenciais de Wi-Fi;
+* Adicione as chaves de acesso do Firebase no código do microcontrolador;
+* Os sensores conectados ao Wemos enviarão dados periodicamente para o Firestore.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🗄️ Estrutura do Projeto
+
+```
+AgroTech/
+├── .next/                        # Arquivos do Next.js
+├── app/                          # Rotas das páginasd da aplicação (Next.js)
+│   └── api/                      # APIs do servidor (Next.js API)
+├── components/                   # Componentes Reacts reutilizáveis
+├── core/                         # Firmware para o Wemos D1 Mini
+├── hooks/                        # Hook para autenticação
+├── lib/                          # Bibliotecas e modelos
+├── public/                       # Arquivos públicos (imagens, ícones)
+│   ├── bandeiras/
+│   └── images/
+├── services/                     # Configuração de serviços externos (Firebase)
+├── package.json
+
+```
+---
+
+## 📜 Funcionalidades
+
+* ✔️ Monitoramento em tempo real da plantação;
+* ✔️ Dashboard com dados dos sensores;
+* ✔️ Histórico de dados armazenados no Firebase;
+* ✔️ Comunicação eficiente entre sensores IoT e plataforma web;
+* ✔️ Interface responsiva e de fácil utilização.
+* ✔️ Relatórios gerados em PDF ou XLSX.
+* ✔️ Escalabilidade e flexibilidade.
+
+---
+
+## 👨‍💻 Autor
+
+* João Flávio C. Lopes — [@JoaoFlavio11](https://github.com/JoaoFlavio11)
+* Pedro Bastos
+* Théo Gomes 
+* André Izidio
+* Maria Clara Thomaz
+---
+
+## ⚠️ Observações
+
+> Este projeto foi desenvolvido com fins acadêmicos para demonstrar a integração de tecnologias web modernas com sistemas IoT aplicados na agricultura de precisão.
+> 2025, Unisal Lorena, Engenharia de computação - 7º semestre.
+
+
+
